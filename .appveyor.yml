@@ -1,0 +1,66 @@
+shallow_clone: true
+
+platform:
+  # - x86
+  - x64
+
+configuration:
+  # - Debug
+  - Release
+
+image:
+  - Visual Studio 2015
+  # - Visual Studio 2017
+
+environment:
+  global:
+      PYTHON: "C:\\conda"
+
+  matrix:
+    - PYTHON_VERSION: "3.6"
+      PYTHON_ARCH: "64"
+
+skip_commits:
+# Add [av skip] to commit messages
+  message: /\[av skip\]/
+
+# # To allow remote connection to appveyor
+# init:
+#   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+
+install:
+  ############################################################################
+  # Install Conda
+  ############################################################################
+  - "git clone --depth 1 git://github.com/astropy/ci-helpers.git"
+  - "powershell ci-helpers/appveyor/install-miniconda.ps1"
+  - "SET PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%"
+
+  ############################################################################
+  # Install Conda
+  ############################################################################
+  - conda config --add channels conda-forge
+  - conda install cmake
+  
+before_build:
+  - cd %APPVEYOR_BUILD_FOLDER%
+  - cmmd: set INSTALL_DIR=%APPVEYOR_BUILD_FOLDER%\build\simulate_install_dir
+  - ps: |
+      mkdir build
+      cd build
+
+  - cmake -G "NMake Makefiles"  ^
+      -DCMAKE_INSTALL_PREFIX=%INSTALL_DIR%   ^
+      %APPVEYOR_BUILD_FOLDER%                     
+
+build_script:
+  - cmake --build . --config %CONFIGURATION%
+  - cmake --build . --target install --config %CONFIGURATION% 
+
+test_script:
+  - cmd: ctest -v .
+
+deploy: off
+
+# on_finish:
+#   - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
