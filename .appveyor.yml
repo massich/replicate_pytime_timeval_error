@@ -24,9 +24,9 @@ skip_commits:
 # Add [av skip] to commit messages
   message: /\[av skip\]/
 
-# # To allow remote connection to appveyor
-# init:
-#   - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+# To allow remote connection to appveyor
+init:
+  - ps: iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
 
 install:
   ############################################################################
@@ -41,7 +41,7 @@ install:
   ############################################################################
   - conda config --add channels conda-forge
   - conda install cmake swig
-  
+
 before_build:
   - cd %APPVEYOR_BUILD_FOLDER%
   - cmmd: set INSTALL_DIR=%APPVEYOR_BUILD_FOLDER%\build\simulate_install_dir
@@ -53,17 +53,18 @@ before_build:
   - cmake -G "Visual Studio 14 2015 Win64"  ^
       -DCMAKE_INSTALL_PREFIX=%INSTALL_DIR%   ^
       -DCMAKE_PREFIX_PATH=%MY_CONDA_PATH%    ^
-      %APPVEYOR_BUILD_FOLDER%                     
+      %APPVEYOR_BUILD_FOLDER%
 
 build_script:
   - cmake --build . --config %CONFIGURATION%
-  - cmake --build . --target install --config %CONFIGURATION% 
+  - cmake --build . --target install --config %CONFIGURATION%
 
 test_script:
   - cd %APPVEYOR_BUILD_FOLDER%\swig\python
+  - dir
   - python test.py
 
 deploy: off
 
-# on_finish:
-#   - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
+on_finish:
+  - ps: $blockRdp = $true; iex ((new-object net.webclient).DownloadString('https://raw.githubusercontent.com/appveyor/ci/master/scripts/enable-rdp.ps1'))
