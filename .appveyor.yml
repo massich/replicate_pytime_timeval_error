@@ -40,7 +40,7 @@ install:
   # Install Conda
   ############################################################################
   - conda config --add channels conda-forge
-  - conda install cmake
+  - conda install cmake swig
   
 before_build:
   - cd %APPVEYOR_BUILD_FOLDER%
