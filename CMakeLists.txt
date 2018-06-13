@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.2)
 project(mwe CXX)
 
 set(CMAKE_CXX_STANDARD 11)
-# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-unused-parameter -fPIC")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-unused-parameter -fPIC")
 
 set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build." FORCE)
 message("CMAKE_MODULE_PATH is " ${CMAKE_MODULE_PATH})
@@ -22,6 +22,9 @@ set_target_properties(foo PROPERTIES PUBLIC_HEADER "foo.h")
 # Create C++ stand alone executable calling foo and bar
 add_executable(hello main.cpp)
 target_link_libraries(hello foo)
+
+# Add the SWIG wrappers
+add_subdirectory(swig)
 
 # Add install target
 install(TARGETS hello foo bar
