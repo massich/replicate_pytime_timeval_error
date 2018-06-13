@@ -40,3 +40,7 @@ enable_testing ()
 add_test( NAME test_hello COMMAND ./hello)
 set_tests_properties (test_hello PROPERTIES
         PASS_REGULAR_EXPRESSION "^Hello from main\nHello from foo\nHello from bar\n$")
+
+# Test Python wrapping
+execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/swig/python/test.py ${CMAKE_CURRENT_BINARY_DIR}/swig/python/)
+add_test(test_python ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/swig/python/test.py)
