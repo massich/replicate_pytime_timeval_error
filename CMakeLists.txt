@@ -3,7 +3,10 @@ cmake_minimum_required(VERSION 3.2)
 project(mwe CXX)
 
 set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -Wno-unused-parameter -fPIC")
+
+if (UNIX)
+  list(APPEND CMAKE_CXX_FLAGS  "-Wall -Wextra -Wno-unused-parameter -fPIC")
+endif()
 
 set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the type of build." FORCE)
 message("CMAKE_MODULE_PATH is " ${CMAKE_MODULE_PATH})
