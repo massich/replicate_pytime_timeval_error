@@ -1,13 +1,12 @@
-#include <iostream>
 #include "bar.h"
 #include "foo.h"
 
-void foo_hello()
+std::string foo_hello()
 {
-    std::cout << "Hello from foo" << std::endl;
+    return "Hello from foo";
 }
 
-void link_bar_hello()
+std::string link_bar_hello()
 {
-    bar_hello();
+    return bar_hello();
 }

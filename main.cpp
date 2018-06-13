@@ -4,8 +4,8 @@
 int main(int argc, char* argv[])
 {
   std::cout << "Hello from main" << std::endl;
-  foo_hello();
-  link_bar_hello();
+  std::cout << foo_hello() << std::endl;
+  std::cout << link_bar_hello() << std::endl;
 
   return 0;
 }

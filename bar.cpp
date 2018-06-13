@@ -1,7 +1,6 @@
-#include <iostream>
 #include "bar.h"
 
-void bar_hello()
+std::string bar_hello()
 {
-    std::cout << "Hello from bar" << std::endl;
+    return "Hello from bar";
 }
