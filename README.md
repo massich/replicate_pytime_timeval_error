@@ -8,5 +8,5 @@ This is a MWE to replicate this issue https://github.com/openmeeg/openmeeg/issue
 ```sh
 mkdir build
 cd build
-cmake .. && cmake --build . && ./hello
+cmake .. && cmake --build . && ctest -v .
 ```
