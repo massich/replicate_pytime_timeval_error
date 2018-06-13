@@ -18,9 +18,10 @@ swig_add_library(swig_mwe LANGUAGE python SOURCES ../swig-mwe.i)
 swig_link_libraries(swig_mwe ${PYTHON_LIBRARIES} foo)
 
 # Files to install with Python
-set(PYTHON_INSTALL_FILES
-        ${CMAKE_CURRENT_BINARY_DIR}/swig_mwe.py
-        ${CMAKE_CURRENT_BINARY_DIR}/_swig_mwe.so)
+set(PYTHON_INSTALL_FILES ${CMAKE_CURRENT_BINARY_DIR}/swig_mwe.py)
+if(UNIN)
+  list(APPEND PYTHON_INSTALL_FILES ${CMAKE_CURRENT_BINARY_DIR}/_swig_mwe.so)
+endif()
 
 execute_process(COMMAND ${PYTHON_EXECUTABLE} "-c" "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))"
                 OUTPUT_VARIABLE PYTHON_SITE_ARCH
