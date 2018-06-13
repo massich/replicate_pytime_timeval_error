@@ -14,7 +14,7 @@ env:
 matrix:
   include:
     - os: linux
-    - os: osx
+    # - os: osx
 
 before_install:
 
