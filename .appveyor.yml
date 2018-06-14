@@ -65,12 +65,12 @@ build_script:
   - cmake --build . --target install --config %CONFIGURATION%
 
 test_script:
+  - ctest -v . -C %CONFIGURATION%
   - cd %APPVEYOR_BUILD_FOLDER%
   - dir *.exe /b/s
   - dir *.py /b/s
   - cd %APPVEYOR_BUILD_FOLDER%\build\swig\python
   - dir
-  - ctest -v . -C %CONFIGURATION%
   # - python test.py
 
 deploy: off

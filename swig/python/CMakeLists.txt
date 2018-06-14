@@ -19,7 +19,7 @@ swig_link_libraries(swig_mwe ${PYTHON_LIBRARIES} foo)
 
 # Files to install with Python
 set(PYTHON_INSTALL_FILES ${CMAKE_CURRENT_BINARY_DIR}/swig_mwe.py)
-if(UNIN)
+if(UNIX)
   list(APPEND PYTHON_INSTALL_FILES ${CMAKE_CURRENT_BINARY_DIR}/_swig_mwe.so)
 endif()
 

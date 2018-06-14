@@ -37,19 +37,15 @@ install(TARGETS hello foo bar
 
 # Test the C++ hello binary
 enable_testing ()
-if (MSVC)
-add_test( NAME test_hello COMMAND ${CMAKE_CURRENT_BINARY_DIR}/build/Relsease/hello.exe)
-else()
 add_test( NAME test_hello COMMAND hello)
-endif()
 set_tests_properties (test_hello PROPERTIES
         PASS_REGULAR_EXPRESSION "^Hello from main\nHello from foo\nHello from bar\n$")
 
-# Test Python wrapping
-if (MSVC)
-execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/swig/python/test.py ${CMAKE_CURRENT_BINARY_DIR}/build/swig/python/)
-add_test(test_python ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/build/swig/python/test.py)
-else()
-execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/swig/python/test.py ${CMAKE_CURRENT_BINARY_DIR}/swig/python/)
-add_test(test_python ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/swig/python/test.py)
-endif()
+# # Test Python wrapping
+# if (MSVC)
+# execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/swig/python/test.py ${CMAKE_CURRENT_BINARY_DIR}/build/swig/python/)
+# add_test(test_python ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/build/swig/python/test.py)
+# else()
+# execute_process(COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_SOURCE_DIR}/swig/python/test.py ${CMAKE_CURRENT_BINARY_DIR}/swig/python/)
+# add_test(test_python ${PYTHON_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/swig/python/test.py)
+# endif()
