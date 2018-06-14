@@ -63,7 +63,7 @@ build_script:
   - cmake --build . --target install --config %CONFIGURATION%
 
 test_script:
-  - ctest -v . -C %CONFIGURATION%
+  - ctest -V . -C %CONFIGURATION%
 
 deploy: off
 
