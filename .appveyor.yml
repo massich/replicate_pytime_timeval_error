@@ -63,6 +63,7 @@ build_script:
   - cmake --build . --target install --config %CONFIGURATION%
 
 test_script:
+  - dir *.py /b/s
   - ctest -V . -C %CONFIGURATION%
 
 deploy: off
