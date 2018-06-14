@@ -63,7 +63,11 @@ build_script:
   - cmake --build . --target install --config %CONFIGURATION%
 
 test_script:
-  - ctest -v . -C %CONFIGURATION%
+  - cd %APPVEYOR_BUILD_FOLDER%
+  - dir *.py /b/s
+  - dir *.exe /b/s
+  - cd %APPVEYOR_BUILD_FOLDER%\build\
+  - ctest -V . -C %CONFIGURATION%
 
 deploy: off
 

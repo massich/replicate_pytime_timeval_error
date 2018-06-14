@@ -35,11 +35,5 @@ install(FILES ${PYTHON_INSTALL_FILES}
 
 if(BUILD_TESTING)
   add_test(NAME test_python COMMAND "${PYTHON_EXECUTABLE}" ${CMAKE_CURRENT_SOURCE_DIR}/test.py)
-  if (MSVC)
-  set_tests_properties ( test_python PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}/Release\;${CMAKE_CURRENT_BINARY_DIR}")
-  else()
-  set_tests_properties ( test_python PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}")
-  endif(MSVC)
+  set_tests_properties ( test_python PROPERTIES ENVIRONMENT "PYTHONPATH=$<TARGET_FILE_DIR:${SWIG_MODULE_swig_mwe_REAL_NAME}>")
 endif(BUILD_TESTING)
-
-
