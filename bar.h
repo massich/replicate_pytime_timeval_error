@@ -1,1 +1,3 @@
-void bar_hello();
+#include <string>
+
+std::string bar_hello();
