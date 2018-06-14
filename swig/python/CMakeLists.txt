@@ -19,7 +19,7 @@ swig_link_libraries(swig_mwe ${PYTHON_LIBRARIES} foo)
 
 # Files to install with Python
 set(PYTHON_INSTALL_FILES ${CMAKE_CURRENT_BINARY_DIR}/swig_mwe.py)
-if(UNIN)
+if(UNIX)
   list(APPEND PYTHON_INSTALL_FILES ${CMAKE_CURRENT_BINARY_DIR}/_swig_mwe.so)
 endif()
 
@@ -32,3 +32,14 @@ string(REGEX MATCH "[Ll]ib.*packages" PYTHON_REL_SITE_ARCH ${PYTHON_SITE_ARCH})
 install(FILES ${PYTHON_INSTALL_FILES}
         DESTINATION ${PYTHON_REL_SITE_ARCH}
         PERMISSIONS OWNER_READ OWNER_WRITE GROUP_READ WORLD_READ)
+
+if(BUILD_TESTING)
+  add_test(NAME test_python COMMAND "${PYTHON_EXECUTABLE}" ${CMAKE_CURRENT_SOURCE_DIR}/test.py)
+  if (MSVC)
+  set_tests_properties ( test_python PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}/Release\;${CMAKE_CURRENT_BINARY_DIR}")
+  else()
+  set_tests_properties ( test_python PROPERTIES ENVIRONMENT "PYTHONPATH=${CMAKE_CURRENT_BINARY_DIR}")
+  endif(MSVC)
+endif(BUILD_TESTING)
+
+
