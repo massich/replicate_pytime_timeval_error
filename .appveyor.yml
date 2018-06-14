@@ -1,4 +1,7 @@
 shallow_clone: true
+branches:
+  only:
+    - master
 
 platform:
   # - x86
@@ -61,9 +64,12 @@ build_script:
 
 test_script:
   # - ctest -v .
+  - cd %APPVEYOR_BUILD_FOLDER%
+  - dir *.exe /b/s
+  - dir *.py /b/s
   - cd %APPVEYOR_BUILD_FOLDER%\build\swig\python
   - dir
-  - python test.py
+  # - python test.py
 
 deploy: off
 
