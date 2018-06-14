@@ -16,6 +16,10 @@ matrix:
     - os: linux
     # - os: osx
 
+branches:
+  only:
+  - master
+
 before_install:
 
   # Travis machines have 2 cores
