@@ -56,9 +56,9 @@ before_build:
   - cmake -G "Visual Studio 14 2015 Win64"  ^
       -DCMAKE_INSTALL_PREFIX=%INSTALL_DIR%   ^
       -DCMAKE_PREFIX_PATH=%MY_CONDA_PATH%    ^
+      --trace-expand ^
+      --trace-source=CMakeLists.txt ^
       %APPVEYOR_BUILD_FOLDER%
-  - dir *.exe /b/s
-  - dir *.py /b/s
 
 build_script:
   - cmake --build . --config %CONFIGURATION%
