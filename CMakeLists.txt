@@ -22,7 +22,7 @@ target_link_libraries(foo bar)
 set_target_properties(foo PROPERTIES PUBLIC_HEADER "foo.h")
 
 # Create C++ stand alone executable calling foo and bar
-add_executable(hello main.cpp)
+add_executable(hello main.cpp matrix.cpp)
 target_link_libraries(hello foo)
 
 enable_testing ()
