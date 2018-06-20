@@ -104,6 +104,7 @@ namespace OpenMEEG {
 
         LinOp() { }
         LinOp(const int m,const int n): base(m,n) { }
+        bool dummy_call(){ return (num_lines && num_cols);}
 
     };
 
