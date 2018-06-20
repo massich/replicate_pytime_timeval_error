@@ -29,6 +29,11 @@ enable_testing ()
 # Add the SWIG wrappers
 add_subdirectory(swig)
 
+if(MSVC)
+    # to allow the use of and, or instead of && ||
+    add_compile_options("/Za")
+endif()
+
 # Add install target
 install(TARGETS hello foo bar
         RUNTIME DESTINATION bin
