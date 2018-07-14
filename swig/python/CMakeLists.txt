@@ -23,11 +23,13 @@ if(UNIX)
   list(APPEND PYTHON_INSTALL_FILES ${CMAKE_CURRENT_BINARY_DIR}/_swig_mwe.so)
 endif()
 
-execute_process(COMMAND ${PYTHON_EXECUTABLE} "-c" "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))"
-                OUTPUT_VARIABLE PYTHON_SITE_ARCH
-                RESULT_VARIABLE PYTHON_SITEARCH_NOT_FOUND)
-#extract correctly python location: e.g lib64/python2.7/site-packages
-string(REGEX MATCH "[Ll]ib.*packages" PYTHON_REL_SITE_ARCH ${PYTHON_SITE_ARCH})
+if(NOT DEFINED PYTHON_REL_SITE_ARCH)
+  execute_process(COMMAND ${PYTHON_EXECUTABLE} "-c" "from distutils.sysconfig import get_python_lib; print(get_python_lib(1))"
+                  OUTPUT_VARIABLE PYTHON_SITE_ARCH
+                  RESULT_VARIABLE PYTHON_SITEARCH_NOT_FOUND)
+  #extract correctly python location: e.g lib64/python2.7/site-packages
+  string(REGEX MATCH "[Ll]ib.*packages" PYTHON_REL_SITE_ARCH ${PYTHON_SITE_ARCH})
+endif()
 
 install(FILES ${PYTHON_INSTALL_FILES}
         DESTINATION ${PYTHON_REL_SITE_ARCH}
